@@ -1,5 +1,6 @@
 import re
 import numpy as np
+import random
 
 class FHRpreproc:
     'Class to preprocess a wfdb-ctg physionet FHR record'
@@ -66,6 +67,48 @@ class FHRpreproc:
         compSignal = signal[np.nonzero(signal)]
         return compSignal
 
+    def findSegments(self,stage1Sig,stage2Sig):
+        """Function to find 10 minute continous segments of FHR signals for
+        analyses.
+        The function will find an equal number of Stage I and II signals.
+        If either comp signal is less than 10min nan is returned.
+        If both signals are longer than 10 minutes, a random portion of each
+        is selected rounded down to the nearest 5 minutes. 
+        Then 10 minute segments are returned for each. Multiple segments will
+        be returned in a 2D matrix with an overlapping window of 5min if both
+        compSignals meet duration requirements."""
+        Stage1Seg = []
+        Stage2Seg = []
+        #Check Length of signals to be > 10min
+        if (len(stage1Sig) > 2400) and (len(stage2Sig) > 2400):
+            #print("HELLO")
+            #Find a random start position for signal
+            minLen = min(len(stage1Sig),len(stage2Sig))
+            #print(minLen)
+            if minLen < 3600:
+                usableLen = minLen - (minLen % 2400)
+            else:
+                usableLen = minLen-(minLen%1200)
+            #print(usableLen)
+            
+            #Choose startpos if multiple samples can be optained from a single
+            #subject
+            
+            #uncomment for random
+            #randStartPos = random.randint(0,minLen - usableLen)
+            randStartPos = 0
+
+            #print(randStartPos)
+            compStage1Sig = stage1Sig[randStartPos:randStartPos+usableLen]
+            #print(len(compStage1Sig))
+            nSeg = usableLen//2400
+            for i in range(0,usableLen//2400):
+                #rint(i)
+                segmentStage1 = stage1Sig[(i+1)*randStartPos:(i+1)*(randStartPos+2400)]
+                Stage1Seg.append(segmentStage1)
+                segmentStage2 = stage2Sig[(i+1)*randStartPos:(i+1)*(randStartPos+2400)]
+                Stage2Seg.append(segmentStage2)
+            return nSeg,Stage1Seg,Stage2Seg
     def calcFHRMean(self, signal):
         """Function to calculate mean of an FHR signal array"""
         FHRmean = np.mean(signal)
@@ -136,24 +179,18 @@ class FHRpreproc:
         Y = np.fft.fft(signal-FHRmean)/n # fft computing and normalization
         Y = abs(Y[range(int(n/2))]) #Unique Magnitude response
         P = np.power(Y,Y) #power
-
+        #Find indexes of each freq band
         VLFindex = np.argmax(frq>=VLF) #Vector index for VLF boundary
-        EnVLF = np.sum(P[0:VLFindex]) #VLF Energy
+        EnVLF = (1/n)*np.sum(P[0:VLFindex]) #VLF Energy
 
         LFindex = np.argmax(frq>=LF) #Vector index for LF boundary
-        EnLF = np.sum(P[VLFindex:LFindex]) #LF Energy
+        EnLF = (1/n)*np.sum(P[VLFindex:LFindex]) #LF Energy
 
         #HFindex = len(frq)
         HFindex = np.argmax(frq>=HF) #Vector index for HF boundary
-        EnHF = np.sum(P[LFindex:HFindex]) #HF Energy
-
-        #fig, ax = plt.subplots(2, 1)
-        #ax[0].plot(t,Stage1SigComp)
-        #ax[0].set_xlabel('Time')
-        #ax[0].set_ylabel('Amplitude')
-        #ax[1].plot(frq[1:],P[1:],'r') # plotting the spectrum
-        #ax[1].set_xlabel('Freq (Hz)')
-        #ax[1].set_ylabel('|Y(freq)|^2')
+        EnHF = (1/n)*np.sum(P[LFindex:HFindex]) #HF Energy
+        LFHFRatio = EnLF/EnHF
 
 
-        return (EnVLF, EnLF, EnHF)
+
+        return (EnVLF, EnLF, EnHF,LFHFRatio)
