@@ -1,4 +1,4 @@
-# fetalheartrate
+# fetal_heart_rate
 This project explores the link between fetal heart rate time-series to their origin within the first or second stage of labor using unsupervised and supervised learning.
 
 The project uses the open The CTU-UHB Intrapartum Cardiotocography Database. A detailed description of this dataset can be found here https://physionet.org/physiobank/database/ctu-uhb-ctgdb/.
