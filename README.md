@@ -17,17 +17,16 @@ cd fetalheartrate
 ```
 2. Create (and activate) a new environment.
 
-	- __Linux__ (to install with __GPU support__, change `requirements/dog-linux.yml` to `requirements/dog-linux-gpu.yml`):
+	- __Linux__ 
+	conda env create -f requirements/fetalheartrate.yml
+	source activate dog-project
+	```  
+	- __Mac__ 
 	```
 	conda env create -f requirements/fetalheartrate.yml
 	source activate dog-project
 	```  
-	- __Mac__ (to install with __GPU support__, change `requirements/dog-mac.yml` to `requirements/dog-mac-gpu.yml`):
-	```
-	conda env create -f requirements/fetalheartrate.yml
-	source activate dog-project
-	```  
-	- __Windows__ (to install with __GPU support__, change `requirements/dog-windows.yml` to `requirements/dog-windows-gpu.yml`):  
+	- __Windows__ 
 	```
 	conda env create -f requirements/fetalheartrate.yml
 	activate dog-project
