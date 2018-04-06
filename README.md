@@ -17,6 +17,7 @@ cd fetalheartrate
 2. Create (and activate) a new environment.
 
 	- __Linux__ 
+	```
 	conda env create -f requirements/fetalheartrate.yml
 	source activate fetalheartrate
 	```  
