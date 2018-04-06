@@ -12,7 +12,6 @@ This project also uses Physionets waveform library to help facilitate importing 
 
 1. Clone the repository and navigate to the downloaded folder.
 ```
-git clone https://github.com/udacity/dog-project.git
 cd fetalheartrate
 ```
 2. Create (and activate) a new environment.
