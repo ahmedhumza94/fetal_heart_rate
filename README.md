@@ -18,17 +18,17 @@ cd fetalheartrate
 
 	- __Linux__ 
 	conda env create -f requirements/fetalheartrate.yml
-	source activate dog-project
+	source activate fetalheartrate
 	```  
 	- __Mac__ 
 	```
 	conda env create -f requirements/fetalheartrate.yml
-	source activate dog-project
+	source activate fetalheartrate
 	```  
 	- __Windows__ 
 	```
 	conda env create -f requirements/fetalheartrate.yml
-	activate dog-project
+	activate fetalheartrate
 	```
 3. Create an [IPython kernel](http://ipython.readthedocs.io/en/stable/install/kernel_install.html) for the `fetalheartrate` environment.
 ```
