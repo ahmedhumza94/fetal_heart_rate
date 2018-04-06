@@ -5,6 +5,9 @@ The project uses the open The CTU-UHB Intrapartum Cardiotocography Database. A d
 
 This project also uses Physionet's waveform library to help facilitate importing of this dataset. This library is labeled as wfdb within the environment .yml file. The project uses python 3.6.2.
 
+A detailed project report can be found as a pdf titled Capstone_Report.pdf. 
+
+The Following instructions can be used to run the code used to produce results within the technical report.
 
 ## Project Instructions
 
