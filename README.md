@@ -1,9 +1,9 @@
 # fetal_heart_rate
 This project explores the link between fetal heart rate time-series to their origin within the first or second stage of labor using unsupervised and supervised learning.
 
-The project uses the open The CTU-UHB Intrapartum Cardiotocography Database. A detailed description of this dataset can be found here https://physionet.org/physiobank/database/ctu-uhb-ctgdb/.
+Thia project uses the open The CTU-UHB Intrapartum Cardiotocography Database. A detailed description of this dataset can be found here https://physionet.org/physiobank/database/ctu-uhb-ctgdb/.
 
-This project also uses Physionet's waveform library to help facilitate importing of this dataset. This library is labeled as wfdb within the environment .yml file. The project uses python 3.6.2.
+This project also uses Physionet's waveform library to help facilitate importing of this dataset. This library is labeled as wfdb within the environment .yml file. Main project code is written in python 3.6.2.
 
 A detailed project report can be found as a pdf titled Capstone_Report.pdf. 
 
